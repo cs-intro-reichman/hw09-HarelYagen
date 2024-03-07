@@ -36,14 +36,15 @@ public class List {
         
     }
     
-    /** GIVE Textual representation of this list. */
-    public String toString() {
-         String str = "";
+   public String toString() {
+         String str = "(";
          ListIterator iterator = listIterator(0);
          while (iterator.hasNext()) {
-            str = str + iterator.current.cp.toString();
+            str = str + iterator.current.cp.toString() + " ";
             iterator.next();
          }
+         str = str.substring(0, str.length() - 1);
+         str = str + ")";
          return str;
     }
 
