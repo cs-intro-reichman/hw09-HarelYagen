@@ -123,25 +123,20 @@ public class LanguageModel {
 	 * @return the generated text
 	 */
 	public String generate(String initialText, int textLength) {
-		if (initialText.length() < windowLength) {
-            return initialText;
-        }
-
-        String window = initialText.substring(initialText.length() - windowLength);
-        String generatedText = initialText; 
-
-        while (generatedText.length() < textLength + initialText.length()) {
-            if (!CharDataMap.containsKey(window)) {
-                return generatedText;
+        String str = initialText;
+		if (str.length() < windowLength) {
+            return str;
+        } 
+            while(str.length() < (initialText.length() + textLength)){
+                String windowtexstring = str.substring(str.length() - windowLength);
+                List num =  CharDataMap.get(windowtexstring);
+                if (num == null) {
+                    return str;
+                }             
+                str = str + getRandomChar(num);
             }
-
-            List probs = CharDataMap.get(window);
-            char c = getRandomChar(probs);
-            generatedText += c;
-            window = generatedText.substring(generatedText.length() - windowLength);
-        }
-
-        return generatedText;
+        
+        return str;
 	}
 
 
