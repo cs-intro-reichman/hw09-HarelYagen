@@ -36,7 +36,8 @@ public class List {
         
     }
     
-   public String toString() {
+    /** GIVE Textual representation of this list. */
+    public String toString() {
          String str = "(";
          ListIterator iterator = listIterator(0);
          while (iterator.hasNext()) {
@@ -51,42 +52,41 @@ public class List {
     /** Returns the index of the first CharData object in this list
      *  that has the same chr value as the given char,
      *  or -1 if there is no such object in this list. */
-     ListIterator iterator = listIterator(0);
-        int i = 0;
-        if (size > 0) { //If the list is not empty
-            while (iterator.hasNext()) {
-                CharData comparedChar = iterator.next();
-                if (comparedChar.chr == chr) {
-                    return i;
-                }
-                i++;
+    
+    public int indexOf(char chr) {
+        int counter = 0;
+        ListIterator iterator = listIterator(0);
+        if (size > 0) {
+        while (iterator.hasNext()) {
+            if (iterator.current.cp.chr == chr) {
+                return counter;
             }
+            iterator.next();
+            counter++;  
         }
-        return -1;
+    }
+      return -1;     
     }
 
     /** If the given character exists in one of the CharData objects in this list,
      *  increments its counter. Otherwise, adds a new CharData object with the
      *  given chr to the beginning of this list. */
-        public int indexOf(char chr) {
-        int counter = 0;
-        ListIterator iterator = listIterator(0);
-        while (iterator.hasNext()) {
-            if (iterator.current.cp.chr == chr) {
-                return counter;
-                
-            }
-            iterator.next();
-            counter++;  
-        }
-      return -1;     
-    }
 
+    public void update(char chr) {
+        int i = indexOf(chr);
+        if ( i > -1 ) { 
+            ListIterator iterator = listIterator(i);
+            Node temp = iterator.current;
+            temp.cp.count++;
+        } else {
+            addFirst(chr);
+        }
+    }
 
     /** GIVE If the given character exists in one of the CharData objects
      *  in this list, removes this CharData object from the list and returns
      *  true. Otherwise, returns false. */
-   public boolean remove(char chr) {
+    public boolean remove(char chr) {
         if (indexOf(chr) == -1) {
             return false;
         }else{
@@ -151,5 +151,17 @@ public class List {
         }
         // Returns an iterator that starts in that element
 	    return new ListIterator(current);
+    }
+
+    public void main (String args[]) {
+            String test = "committee ";
+            for (int i = test.length() - 1; i >= 0; i--) {
+                update(test.charAt(i));
+            }
+            System.out.println(this);
+            System.out.println(indexOf('c'));
+            remove('e');
+            // System.out.println(this);
+            // System.out.println(get(2));
     }
 }
