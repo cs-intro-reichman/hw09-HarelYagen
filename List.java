@@ -51,18 +51,18 @@ public class List {
     /** Returns the index of the first CharData object in this list
      *  that has the same chr value as the given char,
      *  or -1 if there is no such object in this list. */
-    public int indexOf(char chr) {
-        int counter = 0;
-        ListIterator iterator = listIterator(0);
-        while (iterator.hasNext() == true) {
-            if (iterator.current.cp.chr == chr) {
-                return counter;
-                
+     ListIterator iterator = listIterator(0);
+        int i = 0;
+        if (size > 0) { //If the list is not empty
+            while (iterator.hasNext()) {
+                CharData comparedChar = iterator.next();
+                if (comparedChar.chr == chr) {
+                    return i;
+                }
+                i++;
             }
-            iterator.next();
-            counter++;  
         }
-      return -1;     
+        return -1;
     }
 
     /** If the given character exists in one of the CharData objects in this list,
