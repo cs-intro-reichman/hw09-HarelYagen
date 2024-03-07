@@ -129,7 +129,7 @@ public class LanguageModel {
             return initialText;
         } else {
             System.out.println("test1");
-            for (int i = 0; i < str.length(); i++ ) {
+            for (int i = 0; i < textLength; i++ ) {
                 String windowtexstring = str.substring(str.length() - (1 + windowLength), str.length()-1);
                 List num =  CharDataMap.get(windowtexstring);
                 if (num == null) {
