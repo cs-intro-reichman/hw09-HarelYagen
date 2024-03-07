@@ -106,28 +106,14 @@ public class LanguageModel {
 	}
 
     // Returns a random character from the given probabilities list.
-	// public char getRandomChar(List probs) {
-	// 	double randomal = randomGenerator.nextDouble();
-    //     ListIterator iterator = probs.listIterator(0);
-    //     while ((randomal >= iterator.current.cp.cp)) {
-    //           iterator.next();
-    //     }
-    //     return iterator.current.cp.chr;
-	// }
-
-        // Returns a random character from the given probabilities list.
 	public char getRandomChar(List probs) {
-        double randomDouble = randomGenerator.nextDouble();
+		double randomal = randomGenerator.nextDouble();
         ListIterator iterator = probs.listIterator(0);
-        while (iterator.hasNext()) {
-            if (iterator.current.cp.cp > randomDouble) {
-                return iterator.current.cp.chr;
-            }
-            iterator.next();
+        while ((randomal >= iterator.current.cp.cp)) {
+              iterator.next();
         }
-        return ' ';
+        return iterator.current.cp.chr;
 	}
-
 
     /**
 	 * Generates a random text, based on the probabilities that were learned during training. 
@@ -137,11 +123,11 @@ public class LanguageModel {
 	 * @return the generated text
 	 */
 	public String generate(String initialText, int textLength) {
+        String str = initialText;
 		if (textLength <= windowLength) {
             return initialText;
         } else {
-            String str = initialText;
-            for (int i = 0; i < textLength - initialText.length(); i++ ) {
+            for (int i = 0; i < textLength; i++ ) {
                 String windowtexstring = str.substring(str.length()- (1 + windowLength), str.length()-1);
                 List num =  CharDataMap.get(windowtexstring);
                 if (num == null) {
@@ -149,10 +135,8 @@ public class LanguageModel {
                 }             
                 str = str + getRandomChar(num);
             }
-            return str;
-
         }
-
+        return str;
 	}
 
     /** Returns a string representing the map of this language model. */
