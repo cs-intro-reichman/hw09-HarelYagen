@@ -109,7 +109,7 @@ public class LanguageModel {
 	public char getRandomChar(List probs) {
 		double randomal = randomGenerator.nextDouble();
         ListIterator iterator = probs.listIterator(0);
-        while ((randomal >= iterator.current.cp.cp)) {
+        while ((randomal > iterator.current.cp.cp)) {
               iterator.next();
         }
         return iterator.current.cp.chr;
