@@ -122,13 +122,15 @@ public class LanguageModel {
 	 * @param numberOfLetters - the size of text to generate
 	 * @return the generated text
 	 */
-	public String generate(String initialText, int textLength) {
+		public String generate(String initialText, int textLength) {
         String str = initialText;
-		if (textLength <= windowLength) {
+        System.out.println("Hello");
+		if (str.length() <= windowLength) {
             return initialText;
         } else {
+            System.out.println("test1");
             for (int i = 0; i < textLength; i++ ) {
-                String windowtexstring = str.substring(str.length()- (1 + windowLength), str.length()-1);
+                String windowtexstring = str.substring(str.length() - (1 + windowLength), str.length()-1);
                 List num =  CharDataMap.get(windowtexstring);
                 if (num == null) {
                     return str;
