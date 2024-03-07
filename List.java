@@ -29,40 +29,101 @@ public class List {
 
     /** GIVE Adds a CharData object with the given character to the beginning of this list. */
     public void addFirst(char chr) {
-        // Your code goes here
+    
+        Node tempfirst = first; 
+        first = new Node(new CharData(chr), tempfirst);
+        size++;
+        
     }
     
     /** GIVE Textual representation of this list. */
     public String toString() {
-        // Your code goes here
+         String str = "(";
+         ListIterator iterator = listIterator(0);
+         while (iterator.hasNext()) {
+            str = str + iterator.current.cp.toString() + " ";
+            iterator.next();
+         }
+         str = str.substring(0, str.length() - 1);
+         str = str + ")";
+         return str;
     }
 
     /** Returns the index of the first CharData object in this list
      *  that has the same chr value as the given char,
      *  or -1 if there is no such object in this list. */
+    
     public int indexOf(char chr) {
-        // Your code goes here
+        int counter = 0;
+        ListIterator iterator = listIterator(0);
+        if (size > 0) {
+        while (iterator.hasNext()) {
+            if (iterator.current.cp.chr == chr) {
+                return counter;
+            }
+            iterator.next();
+            counter++;  
+        }
+    }
+      return -1;     
     }
 
     /** If the given character exists in one of the CharData objects in this list,
      *  increments its counter. Otherwise, adds a new CharData object with the
      *  given chr to the beginning of this list. */
+
     public void update(char chr) {
-        // Your code goes here
+        int i = indexOf(chr);
+        if ( i > -1 ) { 
+            ListIterator iterator = listIterator(i);
+            Node temp = iterator.current;
+            temp.cp.count++;
+        } else {
+            addFirst(chr);
+        }
     }
 
     /** GIVE If the given character exists in one of the CharData objects
      *  in this list, removes this CharData object from the list and returns
      *  true. Otherwise, returns false. */
     public boolean remove(char chr) {
-        // Your code goes here
+        if (indexOf(chr) == -1) {
+            return false;
+        }else{
+            ListIterator iterator = listIterator(indexOf(chr) - 1);
+            Node temp = iterator.current;
+            if (temp == first) {
+                first = temp.next;
+            }else {
+                iterator.next();
+                if (iterator.hasNext()) {
+                    temp.next = iterator.current.next;
+                }
+                else {
+                    temp.next = null;
+                }
+            }
+        }
+            size--;
+            return true;
     }
 
     /** Returns the CharData object at the specified index in this list. 
      *  If the index is negative or is greater than the size of this list, 
      *  throws an IndexOutOfBoundsException. */
     public CharData get(int index) {
-        // Your code goes here
+        if (index >= size || index < 0){
+        throw new IndexOutOfBoundsException();
+        } else {
+            int counter = 0;
+            Node current = first;
+            while(counter < index){ 
+                current = current.next;
+                counter++;
+            }
+            return current.cp;
+        
+        }
     }
 
     /** Returns an array of CharData objects, containing all the CharData objects in this list. */
@@ -90,5 +151,17 @@ public class List {
         }
         // Returns an iterator that starts in that element
 	    return new ListIterator(current);
+    }
+
+    public void main (String args[]) {
+            String test = "committee ";
+            for (int i = test.length() - 1; i >= 0; i--) {
+                update(test.charAt(i));
+            }
+            System.out.println(this);
+            System.out.println(indexOf('c'));
+            remove('e');
+            // System.out.println(this);
+            // System.out.println(get(2));
     }
 }
