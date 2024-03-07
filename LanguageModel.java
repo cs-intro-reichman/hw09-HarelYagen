@@ -106,14 +106,28 @@ public class LanguageModel {
 	}
 
     // Returns a random character from the given probabilities list.
+	// public char getRandomChar(List probs) {
+	// 	double randomal = randomGenerator.nextDouble();
+    //     ListIterator iterator = probs.listIterator(0);
+    //     while ((randomal >= iterator.current.cp.cp)) {
+    //           iterator.next();
+    //     }
+    //     return iterator.current.cp.chr;
+	// }
+
+        // Returns a random character from the given probabilities list.
 	public char getRandomChar(List probs) {
-		double randomal = randomGenerator.nextDouble();
+        double randomDouble = randomGenerator.nextDouble();
         ListIterator iterator = probs.listIterator(0);
-        while ((randomal >= iterator.current.cp.cp)) {
-              iterator.next();
+        while (iterator.hasNext()) {
+            if (iterator.current.cp.cp > randomDouble) {
+                return iterator.current.cp.chr;
+            }
+            iterator.next();
         }
-        return iterator.current.cp.chr;
+        return ' ';
 	}
+
 
     /**
 	 * Generates a random text, based on the probabilities that were learned during training. 
