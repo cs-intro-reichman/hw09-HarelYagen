@@ -73,7 +73,7 @@ public class List {
         if ( i == -1) { 
             addFirst(chr);
         }else { 
-            ListIterator iterator = listIterator(search);
+            ListIterator iterator = listIterator(i);
             iterator.current.cd.count++;
             size++;
         }
