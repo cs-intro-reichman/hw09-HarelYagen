@@ -125,11 +125,11 @@ public class LanguageModel {
 		public String generate(String initialText, int textLength) {
         String str = initialText;
         System.out.println("Hello");
-		if (str.length() <= windowLength) {
+		if (str.length() < windowLength) {
             return initialText;
         } else {
             System.out.println("test1");
-            for (int i = 0; i < textLength; i++ ) {
+            while(str.length() < (initialText.length() + textLength)){
                 String windowtexstring = str.substring(str.length() - (1 + windowLength), str.length()-1);
                 List num =  CharDataMap.get(windowtexstring);
                 if (num == null) {
