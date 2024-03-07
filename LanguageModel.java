@@ -61,21 +61,22 @@ public class LanguageModel {
             }
             // Processes the entire text, one character at a time
             while (!in.isEmpty()) {
-            // Gets the next character
-                c = in.readChar();
-            // Checks if the window is already in the map
-             List probs = CharDataMap.get(window);
-             // If the window was not found in the map
-             if (probs == null){
-                // Creates a new empty list, and adds (window,list) to the map
-                 probs =  new List();
-                 CharDataMap.put(window, probs);
-             }
-             // Calculates the counts of the current character.
-             probs.update(c);
-             // Advances the window: adds c to the window’s end, and deletes the
-             // window's first character.
-             window = window.substring(1) + c;
+                // Gets the next character
+                    c = in.readChar();
+                // Checks if the window is already in the map
+                List probs = CharDataMap.get(window);
+                // If the window was not found in the map
+                if (probs == null){
+                    // Creates a new empty list, and adds (window,list) to the map
+                    probs =  new List();
+                    CharDataMap.put(window, probs);
+                }
+                // Calculates the counts of the current character.
+                probs.update(c);
+                // Advances the window: adds c to the window’s end, and deletes the
+                // window's first character.
+                window = window.substring(1) + c;
+            }
              // The entire file has been processed, and all the characters have been counted.
              // Proceeds to compute and set the p and cp fields of all the CharData objects
              // in each linked list in the map.
@@ -83,8 +84,7 @@ public class LanguageModel {
                   calculateProbabilities(i);
              }
             }
-	}
-
+	
     // Computes and sets the probabilities (p and cp fields) of all the
 	// characters in the given list. */
 	public void calculateProbabilities(List probs) {				
