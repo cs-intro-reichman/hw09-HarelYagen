@@ -76,7 +76,6 @@ public class List {
             ListIterator iterator = listIterator(i);
             Node temp = iterator.current;
             temp.cp.count = temp.cp.count + 1;
-            size++;
         }
     }
 
