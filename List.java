@@ -68,23 +68,15 @@ public class List {
     /** If the given character exists in one of the CharData objects in this list,
      *  increments its counter. Otherwise, adds a new CharData object with the
      *  given chr to the beginning of this list. */
-   if (index != -1) //we managed to find the char
+ public void update(char chr) {
+   if (indexOf(chr) > -1) 
         {
-          Node current = first;
-          while (current != null)
-       {
-        if (current.cp.chr == chr)
-        {
-            current.cp.count++;//increments the counter
+            get(indexOf(chr)).count++;
+            return;
         }
-        current = current.next;
-       }
-   }
-       else 
-       {
         addFirst(chr);
-       }
-    }
+    } 
+}
 
 
     /** GIVE If the given character exists in one of the CharData objects
