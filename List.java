@@ -74,7 +74,7 @@ public class List {
             addFirst(chr);
         }else { 
             ListIterator iterator = listIterator(i);
-            iterator.current.cp.count++;
+            iterator.current.cp.count = iterator.current.cp.count + 1;
             size++;
         }
     }
