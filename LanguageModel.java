@@ -31,6 +31,25 @@ public class LanguageModel {
         CharDataMap = new HashMap<String, List>();
     }
 
+    public static void main(String[] args) {
+        int windowLength = Integer.parseInt(args[0]);
+        String initialText = args[1];
+        int generatedTextLength = Integer.parseInt(args[2]);
+        Boolean randomGeneration = args[3].equals("random");
+        String fileName = args[4];
+        // Create the LanguageModel object
+        LanguageModel lm;
+        if (randomGeneration)
+        lm = new LanguageModel(windowLength);
+        else
+        lm = new LanguageModel(windowLength, 20);
+        // Trains the model, creating the map.
+        lm.train(fileName);
+        // Generates text, and prints it.
+        System.out.println(lm);
+        System.out.println(lm.generate(initialText, generatedTextLength));
+        }
+
     /** Builds a language model from the text in the given file (the corpus). */
 		public void train(String fileName) {
             String window = "";
@@ -90,7 +109,7 @@ public class LanguageModel {
 	public char getRandomChar(List probs) {
 		double randomal = randomGenerator.nextDouble();
         ListIterator iterator = probs.listIterator(0);
-        while (!(randomal >= iterator.current.cp.cp)) {
+        while ((randomal >= iterator.current.cp.cp)) {
               iterator.next();
         }
         return iterator.current.cp.chr;
@@ -131,8 +150,4 @@ public class LanguageModel {
 		}
 		return str.toString();
 	}
-
-    public static void main(String[] args) {
-		// Your code goes here
-    }
 }
