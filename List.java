@@ -69,13 +69,16 @@ public class List {
      *  increments its counter. Otherwise, adds a new CharData object with the
      *  given chr to the beginning of this list. */
     public void update(char chr) {
-       if (indexOf(chr) == -1) {
-           addFirst(chr);
-       }else{
-        ListIterator iterator = listIterator(search);
-        iterator.current.cd.count++;
-       }
+        int i = indexOf(chr);
+        if ( i == -1) { 
+            addFirst(chr);
+        }else { 
+            ListIterator iterator = listIterator(search);
+            iterator.current.cd.count++;
+            size++;
+        }
     }
+
 
     /** GIVE If the given character exists in one of the CharData objects
      *  in this list, removes this CharData object from the list and returns
