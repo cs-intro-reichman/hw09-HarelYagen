@@ -72,7 +72,8 @@ public class List {
        if (indexOf(chr) == -1) {
            addFirst(chr);
        }else{
-         get(indexOf(chr)).count++;
+        ListIterator iterator = listIterator(search);
+        iterator.current.cd.count++;
        }
     }
 
