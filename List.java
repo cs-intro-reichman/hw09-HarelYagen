@@ -79,21 +79,26 @@ public class List {
     /** GIVE If the given character exists in one of the CharData objects
      *  in this list, removes this CharData object from the list and returns
      *  true. Otherwise, returns false. */
-    public boolean remove(char chr) {
+   public boolean remove(char chr) {
         if (indexOf(chr) == -1) {
             return false;
         }else{
-            int i = 0;
-            Node current = first;
-            while (i < indexOf(chr)-1) { 
-                current = current.next;
-            } 
-            current.next = (current.next).next;
+            ListIterator iterator = listIterator(indexOf(chr) - 1);
+            Node temp = iterator.current;
+            if (temp == first) {
+                first = temp.next;
+            }else {
+                iterator.next();
+                if (iterator.hasNext()) {
+                    temp.next = iterator.current.next;
+                }
+                else {
+                    temp.next = null;
+                }
+            }
+        }
             size--;
             return true;
-
-            
-        }
     }
 
     /** Returns the CharData object at the specified index in this list. 
